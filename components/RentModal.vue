@@ -20,7 +20,7 @@
           is-dark
           is-range
         />
-        <b-button id="show-btn" variant="outline-danger" @click="showModal"
+        <b-button id="show-btn" variant="outline-danger" @click="addOrder"
           >Order</b-button
         >
       </div>
@@ -29,13 +29,21 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+
 export default {
+  props: ["product"],
   methods: {
+    ...mapMutations({ addItem: "addItem" }),
     showModal() {
       this.$refs["my-modal"].show();
     },
     hideModal() {
       this.$refs["my-modal"].hide();
+    },
+    addOrder: function () {
+      this.addItem(this.product.id);
+      this.hideModal();
     },
   },
 };
